@@ -138,7 +138,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .sk-list{font-size:.76rem;color:var(--muted2);line-height:1.75;}
 
 /* EXPERIENCE */
-.exp-item{display:grid;grid-template-columns:180px 1fr;gap:2rem;padding:2rem 0;border-bottom:1px solid var(--border);opacity:0;transform:translateY(14px);transition:opacity .5s,transform .5s;}
+.exp-item{display:grid;grid-template-columns:180px 1fr;gap:2rem;padding:2rem 0;border-bottom:1px solid var(--border);opacity:0;transform:translateY(14px);transition:opacity .5s,transform .5s,padding .4s,margin .4s,border-color .4s;}
 .exp-item.visible{opacity:1;transform:translateY(0);}
 .exp-date{font-size:.68rem;color:var(--muted);letter-spacing:.05em;line-height:1.6;}
 .exp-role{font-size:.98rem;font-weight:600;color:var(--text);margin-bottom:.2rem;}
@@ -148,9 +148,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .exp-pts li::before{content:'✦';position:absolute;left:0;color:var(--muted);}
 
 /* PROJECTS */
-.proj-item{display:grid;grid-template-columns:55px 1fr 130px;gap:2rem;align-items:start;padding:2.2rem 0;border-bottom:1px solid var(--border);opacity:0;transform:translateY(14px);transition:opacity .5s,transform .5s,padding .2s;}
+.proj-item{display:grid;grid-template-columns:55px 1fr 130px;gap:2rem;align-items:start;padding:2.2rem 0;border-bottom:1px solid var(--border);opacity:0;transform:translateY(14px);transition:opacity .5s,transform .5s,padding .4s,margin .4s,border-color .4s;}
 .proj-item.visible{opacity:1;transform:translateY(0);}
-.proj-item:hover{background:rgba(255,255,255,.015);padding-left:.6rem;padding-right:.6rem;margin:0 -.6rem;}
 .proj-num{font-size:.62rem;color:var(--muted);letter-spacing:.1em;padding-top:.2rem;}
 .proj-name{font-family:var(--serif);font-size:1.45rem;color:var(--text);margin-bottom:.5rem;font-weight:400;line-height:1.2;}
 .proj-desc{font-size:.77rem;color:var(--muted2);line-height:1.75;max-width:520px;margin-bottom:.9rem;}
@@ -175,7 +174,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 }
 
 /* EDUCATION */
-.edu-block{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:start;padding:2.5rem 0;border-bottom:1px solid var(--border);}
+.edu-block{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:start;padding:2.5rem 0;border-bottom:1px solid var(--border);transition:padding .4s,margin .4s,border-color .4s;}
 .edu-deg{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.2rem);color:var(--text);font-weight:400;line-height:1.2;margin-bottom:.7rem;}
 .edu-sch{font-size:.8rem;color:var(--muted2);margin-bottom:.25rem;}
 .edu-loc{font-size:.68rem;color:var(--muted);letter-spacing:.05em;}
@@ -213,6 +212,50 @@ footer{padding:1.8rem 3rem;display:flex;justify-content:space-between;align-item
 /* REVEAL */
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;}
 .reveal.visible{opacity:1;transform:translateY(0);}
+
+/* GLASSMORPHISM & RIPPLE */
+.exp-item, .proj-item, .edu-block {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  cursor: pointer;
+  z-index: 1;
+}
+.exp-item::before, .proj-item::before, .edu-block::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.4s ease;
+  z-index: -1;
+  pointer-events: none;
+}
+.exp-item:hover::before, .proj-item:hover::before, .edu-block:hover::before {
+  opacity: 1;
+}
+.exp-item:hover, .proj-item:hover, .edu-block:hover {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+  border-bottom-color: transparent;
+}
+/* BURST PARTICLE */
+.burst-particle {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: var(--green);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+}
 
 ::-webkit-scrollbar{width:3px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
@@ -421,20 +464,20 @@ footer{padding:1.8rem 3rem;display:flex;justify-content:space-between;align-item
     <div class="proj-item">
       <div class="proj-num">01</div>
       <div>
-        <a href="https://github.com/SidharthMN/SafeDriveRewards" target="_blank" class="proj-link">
+        <a href="https://clever-paprenjak-2446f2.netlify.app/" target="_blank" class="proj-link">
         <div class="proj-name">SafeDrive Rewards</div>
         <p class="proj-desc">A gamified driver behavior monitoring platform using YOLO-based vehicle and license plate detection. Real-time video analysis pipeline achieving 4–5 FPS for smart-city applications. Firebase-powered cloud backend with an automated reward point system to promote responsible driving.</p>
         <div class="proj-tags">
           <span class="ptag">YOLO</span><span class="ptag">Python</span><span class="ptag">OpenCV</span><span class="ptag">Firebase</span><span class="ptag">JavaScript</span><span class="ptag">HTML/CSS</span>
         </div>
         <div class="proj-accent">90% Detection Accuracy · 4–5 FPS Real-time</div>
+        </a>
       </div>
       <div class="proj-meta">
         <div class="proj-cat">AI · Computer Vision</div>
         <div class="proj-yr" style="color: white;">Jun 2025 – May 2026</div>
       </div>
     </div>
-    </a>
     <div class="proj-item">
       <div class="proj-num">02</div>
       <div>
@@ -508,6 +551,7 @@ footer{padding:1.8rem 3rem;display:flex;justify-content:space-between;align-item
       <div class="cmeta reveal" style="transition-delay:.22s;">
         <a href="https://linkedin.com/in/sidharthmn" class="clink" target="_blank">LinkedIn</a>
         <a href="https://github.com/SidharthMN" class="clink" target="_blank">GitHub</a>
+        <a href="https://www.instagram.com/sid.soid/" class="clink" target="_blank">Instagram</a>
       </div>
     </div>
   </div>
@@ -529,26 +573,112 @@ setTimeout(function(){
   document.body.style.overflow='';
 },2400);
 
-// CURSOR
-var cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
-var mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;});
-(function tick(){
-  cur.style.left=mx+'px';cur.style.top=my+'px';
-  rx+=(mx-rx)*.1;ry+=(my-ry)*.1;
-  ring.style.left=rx+'px';ring.style.top=ry+'px';
-  requestAnimationFrame(tick);
-})();
-document.querySelectorAll('a,button').forEach(function(el){
-  el.addEventListener('mouseenter',function(){cur.style.width='18px';cur.style.height='18px';ring.style.width='54px';ring.style.height='54px';});
-  el.addEventListener('mouseleave',function(){cur.style.width='10px';cur.style.height='10px';ring.style.width='38px';ring.style.height='38px';});
+// CURSOR ELEMENTS
+var cur = document.getElementById('cur'),
+    ring = document.getElementById('cur-ring');
+
+// Detect if it's NOT a touch device
+if (!('ontouchstart' in window || navigator.maxTouchPoints > 0)) {
+
+  var mx = window.innerWidth / 2, my = window.innerHeight / 2, rx = mx, ry = my;
+  var hasMoved = false;
+  
+  cur.style.opacity = '0';
+  ring.style.opacity = '0';
+
+  document.addEventListener('mousemove', function(e){
+    if (!hasMoved) {
+      cur.style.opacity = '1';
+      ring.style.opacity = '1';
+      rx = e.clientX;
+      ry = e.clientY;
+      hasMoved = true;
+    }
+    mx = e.clientX;
+    my = e.clientY;
+  });
+
+  (function tick(){
+    if (hasMoved) {
+      cur.style.left = mx + 'px';
+      cur.style.top = my + 'px';
+
+      rx += (mx - rx) * .1;
+      ry += (my - ry) * .1;
+
+      ring.style.left = rx + 'px';
+      ring.style.top = ry + 'px';
+    }
+    requestAnimationFrame(tick);
+  })();
+
+  document.querySelectorAll('a,button').forEach(function(el){
+    el.addEventListener('mouseenter', function(){
+      cur.style.width = '18px';
+      cur.style.height = '18px';
+      ring.style.width = '54px';
+      ring.style.height = '54px';
+    });
+
+    el.addEventListener('mouseleave', function(){
+      cur.style.width = '10px';
+      cur.style.height = '10px';
+      ring.style.width = '38px';
+      ring.style.height = '38px';
+    });
+  });
+
+} else {
+  cur.style.display = 'none';
+  ring.style.display = 'none';
+  document.body.style.cursor = 'auto';
+}
+
+// SCROLL REVEAL ANIMATIONS
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      // Stop observing once made visible so it doesn't animate out when scrolling up
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.reveal, .exp-item, .proj-item').forEach(function(el) {
+  observer.observe(el);
 });
 
-// SCROLL REVEAL
-var obs=new IntersectionObserver(function(entries){
-  entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});
-},{threshold:0.1});
-document.querySelectorAll('.reveal,.exp-item,.proj-item').forEach(function(el){obs.observe(el);});
+// GLOBAL BURST EFFECT
+document.addEventListener('pointerdown', function(e) {
+  var x = e.clientX;
+  var y = e.clientY;
+  var particleCount = 12;
+  
+  for (var i = 0; i < particleCount; i++) {
+    var particle = document.createElement('div');
+    particle.className = 'burst-particle';
+    particle.style.left = x + 'px';
+    particle.style.top = y + 'px';
+    document.body.appendChild(particle);
+    
+    var angle = (Math.PI * 2 * i) / particleCount;
+    var velocity = 60;
+    var tx = Math.cos(angle) * velocity;
+    var ty = Math.sin(angle) * velocity;
+    
+    var animation = particle.animate([
+      { transform: 'translate(-50%, -50%) scale(1.2)', opacity: 1 },
+      { transform: 'translate(calc(-50% + ' + tx + 'px), calc(-50% + ' + ty + 'px)) scale(0)', opacity: 0 }
+    ], {
+      duration: 500,
+      easing: 'cubic-bezier(0, .9, .57, 1)',
+      fill: 'forwards'
+    });
+    
+    animation.onfinish = (function(p) { return function() { p.remove(); }; })(particle);
+  }
+});
 </script>
 </body>
 </html>
