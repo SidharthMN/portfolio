@@ -141,7 +141,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .exp-item{display:grid;grid-template-columns:180px 1fr;gap:2rem;padding:2rem 0;border-bottom:1px solid var(--border);opacity:0;transform:translateY(14px);transition:opacity .5s,transform .5s,padding .4s,margin .4s,border-color .4s;}
 .exp-item.visible{opacity:1;transform:translateY(0);}
 .exp-date{font-size:.68rem;color:var(--muted);letter-spacing:.05em;line-height:1.6;}
-.exp-role{font-size:.98rem;font-weight:600;color:var(--text);margin-bottom:.2rem;}
+.exp-role{font-family:var(--serif);font-weight:400;font-size:.98rem;color:var(--text);margin-bottom:.2rem;}
 .exp-co{font-size:.73rem;color:var(--muted2);margin-bottom:.8rem;letter-spacing:.03em;}
 .exp-pts{list-style:none;}
 .exp-pts li{font-size:.77rem;color:var(--muted2);line-height:1.7;padding-left:1rem;position:relative;margin-bottom:.25rem;}
@@ -287,8 +287,9 @@ footer{padding:1.8rem 3rem;display:flex;justify-content:space-between;align-item
 <div id="loader">
   <div class="ld-word">SIDSOID<span class="ld-fill">SIDSOID</span></div>
   <div class="ld-bar"><div class="ld-prog"></div></div>
-  <div class="ld-sub">Built to be Classy and elegant</div>
+  <div class="ld-sub" id="ld-sub-text">Curating the experience...</div>
 </div>
+
 
 <div id="mc">
 
@@ -567,6 +568,16 @@ footer{padding:1.8rem 3rem;display:flex;justify-content:space-between;align-item
 <script>
 // LOADER
 document.body.style.overflow='hidden';
+
+var ldSub = document.getElementById('ld-sub-text');
+if (ldSub) {
+  // 1.8s total loading animation (0.1s delay + 1.7s duration).
+  // 30% of 1800ms = 540ms
+  setTimeout(function() { ldSub.textContent = "Synchronizing vision and code."; }, 540);
+  // 70% of 1800ms = 1260ms
+  setTimeout(function() { ldSub.textContent = "Polishing the pixels."; }, 1260);
+}
+
 setTimeout(function(){
   document.getElementById('loader').classList.add('hide');
   document.getElementById('mc').classList.add('visible');
