@@ -49,7 +49,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .sec-meta-left,.sec-meta-right,.sec-num{font-size:.62rem;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;}
 
 /* HERO */
-#hero{min-height:100vh;padding:9rem 3rem 5rem;border-bottom:1px solid var(--border);position:relative;display:flex;flex-direction:column;justify-content:flex-end;}
+#hero{min-height:100vh;padding:9rem 3rem 5rem;border-bottom:1px solid var(--border);position:relative;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;}
+.hero-spline{position:absolute;inset:0;z-index:0;pointer-events:auto;}
+#hero > *:not(.hero-spline){position:relative;z-index:1;}
+
 .hero-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:3.5rem;}
 .hero-top-left {
   font-size: .7rem;
@@ -308,6 +311,10 @@ footer{padding:1.8rem 3rem;display:flex;justify-content:space-between;align-item
 
 <!-- HERO -->
 <section id="hero">
+  <div class="hero-spline">
+    <iframe src='https://my.spline.design/sphereparticle-74f94uP1lsCjrNXoGeW3Cir2/' frameborder='0' width='100%' height='100%'></iframe>
+  </div>
+
   <h1 class="hero-name reveal" style="justify-content:center;margin-bottom: 2rem;text-align:center;transition-delay:.08s;">
     Sidharth<br/><em style="color: white;">M N</em>
   </h1>
@@ -466,7 +473,7 @@ footer{padding:1.8rem 3rem;display:flex;justify-content:space-between;align-item
       <div class="proj-num">01</div>
       <div>
         <a href="https://clever-paprenjak-2446f2.netlify.app/" target="_blank" class="proj-link">
-        <div class="proj-name">SafeDrive Rewards</div>
+        <div class="proj-name">SafeDrive Rewards - A Driver Safety Platform</div>
         <p class="proj-desc">A gamified driver behavior monitoring platform using YOLO-based vehicle and license plate detection. Real-time video analysis pipeline achieving 4–5 FPS for smart-city applications. Firebase-powered cloud backend with an automated reward point system to promote responsible driving.</p>
         <div class="proj-tags">
           <span class="ptag">YOLO</span><span class="ptag">Python</span><span class="ptag">OpenCV</span><span class="ptag">Firebase</span><span class="ptag">JavaScript</span><span class="ptag">HTML/CSS</span>
@@ -482,11 +489,13 @@ footer{padding:1.8rem 3rem;display:flex;justify-content:space-between;align-item
     <div class="proj-item">
       <div class="proj-num">02</div>
       <div>
-        <div class="proj-name">AI-Integrated Audio &amp; Subtitles for OTT</div>
-        <p class="proj-desc">Scalable Node.js backend for automated Malayalam audio dubbing and subtitle generation. Integrates Google Speech-to-Text and TTS APIs with translation workflows for efficient subtitle synchronization and multilingual audio processing.</p>
+        <a href="https://github.com/SidharthMN/vaakmitra--An-AI-OTT-LIVE-EN-ML-TRANSLATING-PLATFORM" target="_blank" class="proj-link">
+        <div class="proj-name">VaakMitra - An AI Dubbing Platform for OTT</div>
+        <p class="proj-desc">Scalable Python Flask backend for automated Malayalam audio dubbing and subtitle generation. Integrates Google Speech-to-Text and TTS APIs with translation workflows for efficient subtitle synchronization and multilingual audio processing.</p>
         <div class="proj-tags">
-          <span class="ptag">Node.js</span><span class="ptag">Google TTS</span><span class="ptag">Speech-to-Text</span><span class="ptag">Translation API</span>
+          <span class="ptag">Flask</span><span class="ptag">Google TTS</span><span class="ptag">Speech-to-Text</span><span class="ptag">FFmpeg</span>
         </div>
+        </a>
       </div>
       <div class="proj-meta">
         <div class="proj-cat">Frontend · NLP</div>
