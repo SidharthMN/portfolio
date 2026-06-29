@@ -1827,6 +1827,7 @@ document.addEventListener('pointerdown', function(e) {
       // Display choice modal
       modal.classList.add('active');
       document.body.style.overflow = 'hidden'; // Lock page scrolling
+      pushModalState('details');
     });
   });
 
@@ -1901,12 +1902,35 @@ document.addEventListener('pointerdown', function(e) {
     setActiveImage(nextIndex);
   });
 
-  function closeModal() {
+  let isStatePushed = false;
+
+  function pushModalState(type) {
+    if (!isStatePushed) {
+      window.history.pushState({ modalType: type }, '');
+      isStatePushed = true;
+    }
+  }
+
+  function clearModalState() {
+    if (isStatePushed) {
+      isStatePushed = false;
+      if (window.history.state && window.history.state.modalType) {
+        window.history.back();
+      }
+    }
+  }
+
+  function closeModalDirect() {
     modal.classList.remove('active');
     const navLinks = document.querySelector('.nav-links');
     if (!navLinks || !navLinks.classList.contains('active')) {
       document.body.style.overflow = '';
     }
+  }
+
+  function closeModal() {
+    closeModalDirect();
+    clearModalState();
   }
 
   closeBtn.addEventListener('click', closeModal);
@@ -1915,7 +1939,11 @@ document.addEventListener('pointerdown', function(e) {
   });
 
   function playVideo(url) {
-    closeModal();
+    // Close details modal without resetting history state tracking,
+    // we'll push the new video state directly
+    closeModalDirect();
+    isStatePushed = false;
+
     if (!url) return;
 
     const isEmbed = url.includes('linkedin.com') || 
@@ -1945,12 +1973,18 @@ document.addEventListener('pointerdown', function(e) {
     
     videoOverlay.classList.add('active');
     document.body.style.overflow = 'hidden';
+    pushModalState('video');
   }
 
-  function closeVideo() {
+  function closeVideoDirect() {
     videoContainer.innerHTML = '';
     videoOverlay.classList.remove('active');
     document.body.style.overflow = '';
+  }
+
+  function closeVideo() {
+    closeVideoDirect();
+    clearModalState();
   }
 
   videoCloseBtn.addEventListener('click', closeVideo);
@@ -1962,6 +1996,16 @@ document.addEventListener('pointerdown', function(e) {
       } else if (modal.classList.contains('active')) {
         closeModal();
       }
+    }
+  });
+
+  // Handle browser back button / phone back gestures
+  window.addEventListener('popstate', function(e) {
+    isStatePushed = false;
+    if (videoOverlay.classList.contains('active')) {
+      closeVideoDirect();
+    } else if (modal.classList.contains('active')) {
+      closeModalDirect();
     }
   });
 
