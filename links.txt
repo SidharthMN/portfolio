@@ -1,0 +1,16 @@
+laravel ecommerce
+project : https://www.linkedin.com/feed/update/urn:li:activity:7466401884061343745/
+github : https://github.com/SidharthMN/laravel-ecommerce
+
+vaakmitra project
+project : https://www.linkedin.com/feed/update/urn:li:activity:7477322504458395648/
+github : https://github.com/SidharthMN/vaakmitra--An-AI-OTT-LIVE-EN-ML-TRANSLATING-PLATFORM
+
+xpenz
+project : https://www.linkedin.com/feed/update/urn:li:activity:7462139230429827072/
+github : https://github.com/SidharthMN/xpenz-fintech
+
+safedrive rewards
+frontend : https://www.linkedin.com/feed/update/urn:li:activity:7456025245217464320/
+backend : https://www.linkedin.com/feed/update/urn:li:activity:7461759841993150464/
+github : https://github.com/SidharthMN/LICENSEPLATEDETECTION

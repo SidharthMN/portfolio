@@ -16,8 +16,8 @@ html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:hidden;cursor:none;}
 
 /* CURSOR */
-#cur{position:fixed;width:10px;height:10px;background:var(--text);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:difference;}
-#cur-ring{position:fixed;width:38px;height:38px;border:1px solid rgba(255,255,255,.2);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s;}
+#cur{position:fixed;width:10px;height:10px;background:var(--text);border-radius:50%;pointer-events:none;z-index:200002;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:difference;}
+#cur-ring{position:fixed;width:38px;height:38px;border:1px solid rgba(255,255,255,.2);border-radius:50%;pointer-events:none;z-index:200001;transform:translate(-50%,-50%);transition:width .3s,height .3s;}
 
 /* LOADER */
 #loader{position:fixed;inset:0;background:var(--bg);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;transition:opacity .7s ease,visibility .7s ease;}
@@ -272,9 +272,555 @@ footer{padding:1.8rem 3rem;display:flex;justify-content:space-between;align-item
   z-index: 99999;
 }
 
+
+
+/* PROJECTS GRID & CARDS */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+  margin-top: 2rem;
+}
+
+.proj-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, box-shadow 0.4s;
+  cursor: pointer;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+}
+
+.proj-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--green);
+  box-shadow: 0 15px 40px rgba(0, 224, 144, 0.06);
+}
+
+.proj-card-img-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 60%; /* 5:3 Aspect Ratio */
+  overflow: hidden;
+  background: #151515;
+  border-bottom: 1px solid var(--border);
+}
+
+.proj-card-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.proj-card:hover .proj-card-img {
+  transform: scale(1.08);
+}
+
+.proj-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(12, 12, 12, 0.4);
+  opacity: 0;
+  transition: opacity 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.proj-card:hover .proj-card-overlay {
+  opacity: 1;
+}
+
+.proj-card-explore-btn {
+  background: var(--text);
+  color: var(--bg);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.7rem 1.4rem;
+  border-radius: 30px;
+  transform: translateY(15px);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.proj-card:hover .proj-card-explore-btn {
+  transform: translateY(0);
+}
+
+.proj-card-body {
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.proj-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.proj-card-num {
+  font-size: 0.58rem;
+  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.proj-card-cat {
+  font-size: 0.58rem;
+  color: var(--green);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+.proj-card-title {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  color: var(--text);
+  margin-bottom: 0.8rem;
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.proj-card-desc {
+  font-size: 0.74rem;
+  color: var(--muted2);
+  line-height: 1.6;
+  margin-bottom: 1.4rem;
+  flex-grow: 1;
+}
+
+.proj-card-footer {
+  margin-top: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+  padding-top: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.proj-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.proj-card-yr {
+  font-size: 0.58rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* QUICK VIEW POPUP MODAL (E-COMMERCE STYLE) */
+.p-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 8, 8, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s;
+}
+
+.p-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.p-modal-card {
+  background: rgba(18, 18, 18, 0.75);
+  border: 1px solid var(--border2);
+  border-radius: 24px;
+  width: 92%;
+  max-width: 960px;
+  max-height: 90vh;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8), 0 0 100px rgba(0, 224, 144, 0.03);
+  transform: scale(0.95) translateY(10px);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+}
+
+.p-modal-overlay.active .p-modal-card {
+  transform: scale(1) translateY(0);
+}
+
+.p-modal-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: var(--text);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  z-index: 10010;
+}
+
+.p-modal-close:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--green);
+  transform: scale(1.05);
+}
+
+/* Left panel - Image Slider */
+.p-modal-left {
+  width: 52%;
+  background: #0f0f0f;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border2);
+}
+
+.p-slider-main-container {
+  flex-grow: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px;
+}
+
+.p-slider-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  position: absolute;
+}
+
+.p-slider-img.active {
+  opacity: 1;
+  position: relative;
+}
+
+.p-slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(12, 12, 12, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  z-index: 5;
+  font-size: 0.8rem;
+  user-select: none;
+}
+
+.p-slider-arrow:hover {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+}
+
+.p-slider-arrow-prev {
+  left: 1.2rem;
+}
+
+.p-slider-arrow-next {
+  right: 1.2rem;
+}
+
+.p-slider-thumbnails {
+  display: flex;
+  gap: 0.6rem;
+  padding: 1.2rem;
+  background: rgba(12, 12, 12, 0.5);
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.p-slider-thumbnails::-webkit-scrollbar {
+  display: none;
+}
+
+.p-thumb {
+  width: 60px;
+  height: 40px;
+  border-radius: 6px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid transparent;
+  opacity: 0.4;
+  transition: border-color 0.2s, opacity 0.2s;
+  flex-shrink: 0;
+}
+
+.p-thumb.active {
+  border-color: var(--green);
+  opacity: 1;
+}
+
+.p-thumb:hover {
+  opacity: 1;
+}
+
+/* Right panel - Details */
+.p-modal-right {
+  width: 48%;
+  padding: 3rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+.p-modal-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  padding-bottom: 0.8rem;
+}
+
+.p-modal-cat {
+  font-size: 0.62rem;
+  color: var(--green);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.p-modal-yr {
+  font-size: 0.62rem;
+  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.p-modal-title {
+  font-family: var(--serif);
+  font-size: 2rem;
+  color: var(--text);
+  margin-bottom: 1.4rem;
+  font-weight: 400;
+  line-height: 1.2;
+  text-align: left;
+}
+
+.p-modal-desc-heading {
+  font-size: 0.68rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.6rem;
+  font-weight: 700;
+  text-align: left;
+}
+
+.p-modal-desc {
+  font-size: 0.8rem;
+  color: var(--muted2);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.p-modal-tags-heading {
+  font-size: 0.68rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.6rem;
+  font-weight: 700;
+  text-align: left;
+}
+
+.p-modal-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 2.2rem;
+}
+
+.p-modal-actions-heading {
+  font-size: 0.68rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.8rem;
+  font-weight: 700;
+  text-align: left;
+}
+
+.p-modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: auto;
+}
+
+.p-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.8rem 1.6rem;
+  border-radius: 8px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  width: 100%;
+}
+
+.p-action-btn-primary {
+  background: var(--green);
+  color: var(--bg);
+  border: 1px solid var(--green);
+}
+
+.p-action-btn-primary:hover {
+  background: transparent;
+  color: var(--green);
+}
+
+.p-action-btn-secondary {
+  background: transparent;
+  border: 1px solid var(--border2);
+  color: var(--text);
+}
+
+.p-action-btn-secondary:hover {
+  border-color: var(--text);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* FULLSCREEN VIDEO OVERLAY */
+.v-overlay {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 20000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.v-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.v-overlay-close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.2s;
+  z-index: 20005;
+}
+
+.v-overlay-close:hover {
+  background: var(--green);
+  color: var(--bg);
+  transform: scale(1.1);
+}
+
+.v-overlay-container {
+  width: 100%;
+  height: 100%;
+  max-width: 100vw;
+  max-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.v-overlay-media {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border: none;
+}
+
+/* Responsive collapse */
+@media(max-width: 768px) {
+  .p-modal-card {
+    flex-direction: column;
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+  
+  .p-modal-left {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border2);
+  }
+  
+  .p-modal-right {
+    width: 100%;
+    padding: 2rem 1.8rem;
+    max-height: none;
+    overflow-y: visible;
+  }
+
+  .p-modal-title {
+    font-size: 1.6rem;
+  }
+}
+
 ::-webkit-scrollbar{display:none;}
 html{-ms-overflow-style:none;scrollbar-width:none;}
 ::selection{background:var(--green);color:var(--bg);}
+
 
 @media(max-width:768px){
   nav{padding:1rem 1.5rem;}
@@ -498,56 +1044,149 @@ html{-ms-overflow-style:none;scrollbar-width:none;}
       <span class="sec-num">(SMN — 04)</span>
       <span class="sec-meta-right">Built Things</span>
     </div>
-    <div class="proj-item">
-      <div class="proj-num">01</div>
-      <div>
-        <a href="https://safedriverewards.netlify.app/" target="_blank" class="proj-link">
-        <div class="proj-name">SafeDrive Rewards - A Driver Safety Platform</div>
-        <p class="proj-desc">A gamified driver behavior monitoring platform using YOLO-based vehicle and license plate detection. Real-time video analysis pipeline achieving 4–5 FPS for smart-city applications. Firebase-powered cloud backend with an automated reward point system to promote responsible driving.</p>
-        <div class="proj-tags">
-          <span class="ptag">YOLO</span><span class="ptag">Python</span><span class="ptag">OpenCV</span><span class="ptag">Firebase</span><span class="ptag">JavaScript</span><span class="ptag">HTML/CSS</span>
+    <div class="projects-grid">
+      
+      <!-- Project 01: SafeDrive Rewards -->
+      <div class="proj-card reveal" 
+           data-title="SafeDrive Rewards" 
+           data-num="01"
+           data-category="AI · Computer Vision"
+           data-yr="Jun 2025 – May 2026"
+           data-code="https://github.com/SidharthMN/LICENSEPLATEDETECTION" 
+           data-video-frontend="https://www.linkedin.com/embed/feed/update/urn:li:activity:7456025245217464320/"
+           data-video-backend="https://www.linkedin.com/embed/feed/update/urn:li:activity:7461759841993150464/"
+           data-images="safedrive_pics/safedrive_img1.png,safedrive_pics/safedrive_img2.png,safedrive_pics/safedrive_img3.png,safedrive_pics/safedrive_img4.png,safedrive_pics/safedrive_img5.png"
+           data-tags="YOLO,Python,OpenCV,Firebase,JavaScript"
+           data-accent="90% Detection Accuracy · 4–5 FPS Real-time"
+           data-description="SafeDrive Rewards is a gamified driver behavior monitoring platform that leverages YOLO-based vehicle and license plate detection. It processes live video streams at 4–5 FPS with a 90% detection accuracy, feeding safe driving metrics to a Firebase-powered cloud backend. The system calculates driver scorecards and distributes reward points through an automated system, helping promote smart-city safety initiatives. Includes separate validation paths for both frontend user screens and backend analytics.">
+        
+        <div class="proj-card-img-wrapper">
+          <img src="safedrive_pics/safedrive_img1.png" alt="SafeDrive Rewards" class="proj-card-img" loading="lazy">
+          <div class="proj-card-overlay">
+            <span class="proj-card-explore-btn">Explore Details</span>
+          </div>
         </div>
-        <div class="proj-accent">90% Detection Accuracy ·  4–5 FPS Real-time</div>
-        </a>
-      </div>
-      <div class="proj-meta">
-        <div class="proj-cat">AI · Computer Vision</div>
-        <div class="proj-yr" style="color: white;">Jun 2025 – May 2026</div>
-      </div>
-    </div>
-    <div class="proj-item">
-      <div class="proj-num">02</div>
-      <div>
-        <a href="https://github.com/SidharthMN/vaakmitra--An-AI-OTT-LIVE-EN-ML-TRANSLATING-PLATFORM" target="_blank" class="proj-link">
-        <div class="proj-name">VaakMitra - An AI Dubbing Platform for OTT</div>
-        <p class="proj-desc">Scalable Python Flask backend for automated Malayalam audio dubbing and subtitle generation. Integrates Google Speech-to-Text and TTS APIs with translation workflows for efficient subtitle synchronization and multilingual audio processing.</p>
-        <div class="proj-tags">
-          <span class="ptag">Flask</span><span class="ptag">Google TTS</span><span class="ptag">Speech-to-Text</span><span class="ptag">FFmpeg</span>
+        <div class="proj-card-body">
+          <div class="proj-card-header">
+            <span class="proj-card-num">01</span>
+            <span class="proj-card-cat">AI · Computer Vision</span>
+          </div>
+          <h3 class="proj-card-title">SafeDrive Rewards - A Driver Safety Platform</h3>
+          <p class="proj-desc">A gamified driver behavior monitoring platform using YOLO-based vehicle and license plate detection. Real-time video analysis pipeline achieving 4–5 FPS for smart-city applications.</p>
+          <div class="proj-card-footer">
+            <div class="proj-card-tags">
+              <span class="ptag">YOLO</span><span class="ptag">Python</span><span class="ptag">OpenCV</span>
+            </div>
+            <span class="proj-card-yr">2026</span>
+          </div>
         </div>
-        <div class="proj-accent">100% Working and accessed through Github ·  Real-time Translation</div>
-        </a>
       </div>
-      <div class="proj-meta">
-        <div class="proj-cat">Frontend · NLP</div>
-        <div class="proj-yr" style="color: white;">Dec 2024 – Apr 2025</div>
-      </div>
-    </div>
-    <div class="proj-item">
-      <div class="proj-num">03</div>
-      <div>
-        <a href="https://xpenz-fintech.netlify.app/" target="_blank" class="proj-link">
-        <div class="proj-name">Xpenz — AWS Cloud Expense Tracker</div>
-        <p class="proj-desc">Developed a cloud-native fintech expense tracking application using React Vite, Tailwind CSS, AWS Lambda, API Gateway, and DynamoDB. Built a fully serverless backend architecture to manage expense storage, retrieval, analytics, and API communication in real time. Designed an interactive SaaS-style dashboard with charts, transaction tracking, and responsive UI, with deployment through GitHub and Netlify. Also integrated Electron support for desktop software capability.</p>
-        <div class="proj-tags">
-          <span class="ptag">React.js</span><span class="ptag">Tailwind CSS</span><span class="ptag">AWS Lambda</span><span class="ptag">DynamoDB</span><span class="ptag">Amazon API Gateway</span><span class="ptag">Netlify</span><span class="ptag">REST APIs</span><span class="ptag">Electron JS</span><span class="ptag">Cloud Computing</span>
+
+      <!-- Project 02: VaakMitra -->
+      <div class="proj-card reveal" 
+           data-title="VaakMitra" 
+           data-num="02"
+           data-category="Frontend · NLP"
+           data-yr="Dec 2024 – Apr 2025"
+           data-code="https://github.com/SidharthMN/vaakmitra--An-AI-OTT-LIVE-EN-ML-TRANSLATING-PLATFORM" 
+           data-video="https://www.linkedin.com/embed/feed/update/urn:li:activity:7477322504458395648/"
+           data-images="vaakmitra_pics/vaakmitra_img1.png,vaakmitra_pics/vaakmitra_img2.png,vaakmitra_pics/vaakmitra_img3.png,vaakmitra_pics/vaakmitra_img4.png,vaakmitra_pics/vaakmitra_img5.png"
+           data-tags="Flask,Google TTS,Speech-to-Text,FFmpeg"
+           data-accent="100% Working on Github · Real-time Translation"
+           data-description="VaakMitra is an AI-integrated dubbing and audio translation platform tailored for OTT media delivery. It orchestrates a Python Flask backend to transcribe Malayalam audio streams via Google Speech-to-Text, translate it using machine learning NLP models, and synthesize synchronized voiceovers using Google Text-to-Speech (TTS). Subtitle tracks are generated and aligned with precision using automated FFmpeg workflows.">
+        
+        <div class="proj-card-img-wrapper">
+          <img src="vaakmitra_pics/vaakmitra_img1.png" alt="VaakMitra" class="proj-card-img" loading="lazy">
+          <div class="proj-card-overlay">
+            <span class="proj-card-explore-btn">Explore Details</span>
+          </div>
         </div>
-        <div class="proj-accent">100% Working and Deployable as Software and Web App ·  Real-time Expense Analyzer</div>
-        </a>
+        <div class="proj-card-body">
+          <div class="proj-card-header">
+            <span class="proj-card-num">02</span>
+            <span class="proj-card-cat">Frontend · NLP</span>
+          </div>
+          <h3 class="proj-card-title">VaakMitra - An AI Dubbing Platform for OTT</h3>
+          <p class="proj-desc">Scalable Python Flask backend for automated Malayalam audio dubbing and subtitle generation. Integrates Google Speech-to-Text and TTS APIs with translation workflows.</p>
+          <div class="proj-card-footer">
+            <div class="proj-card-tags">
+              <span class="ptag">Flask</span><span class="ptag">Google TTS</span><span class="ptag">FFmpeg</span>
+            </div>
+            <span class="proj-card-yr">2025</span>
+          </div>
+        </div>
       </div>
-      <div class="proj-meta">
-        <div class="proj-cat">Fintech · Cloudware</div>
-        <div class="proj-yr" style="color: white;">Jun 2025 – May 2026</div>
+
+      <!-- Project 03: Xpenz -->
+      <div class="proj-card reveal" 
+           data-title="Xpenz" 
+           data-num="03"
+           data-category="Fintech · Cloudware"
+           data-yr="Jun 2025 – May 2026"
+           data-code="https://github.com/SidharthMN/xpenz-fintech" 
+           data-video="https://www.linkedin.com/embed/feed/update/urn:li:activity:7462139230429827072/"
+           data-images="xpenz_pics/xpenz_img1.png,xpenz_pics/xpenz_img2.png,xpenz_pics/xpenz_img3.png,xpenz_pics/xpenz_img4.png,xpenz_pics/xpenz_img5.png"
+           data-tags="React,Tailwind CSS,AWS Lambda,DynamoDB,API Gateway"
+           data-accent="100% Working Web & Desktop · Real-time Analytics"
+           data-description="Xpenz is a cloud-native SaaS-style expense tracker application built on React, Vite, and Tailwind CSS. Backed by a fully serverless AWS stack—including Lambda, Amazon API Gateway, and DynamoDB storage—it supports instant expense data processing and category analytics. The code integrates Electron framework wrapper releases to support native cross-platform desktop releases alongside web app deployments.">
+        
+        <div class="proj-card-img-wrapper">
+          <img src="xpenz_pics/xpenz_img1.png" alt="Xpenz" class="proj-card-img" loading="lazy">
+          <div class="proj-card-overlay">
+            <span class="proj-card-explore-btn">Explore Details</span>
+          </div>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-header">
+            <span class="proj-card-num">03</span>
+            <span class="proj-card-cat">Fintech · Cloudware</span>
+          </div>
+          <h3 class="proj-card-title">Xpenz — AWS Cloud Expense Tracker</h3>
+          <p class="proj-desc">Developed a serverless fintech expense tracker using React, AWS Lambda, API Gateway, and DynamoDB. Deployed via Netlify and compiled with Electron for desktop builds.</p>
+          <div class="proj-card-footer">
+            <div class="proj-card-tags">
+              <span class="ptag">React</span><span class="ptag">AWS Lambda</span><span class="ptag">DynamoDB</span>
+            </div>
+            <span class="proj-card-yr">2026</span>
+          </div>
+        </div>
       </div>
+
+      <!-- Project 04: Laravel E-Commerce -->
+      <div class="proj-card reveal" 
+           data-title="Laravel E-Commerce" 
+           data-num="04"
+           data-category="E-Commerce · DevOps"
+           data-yr="Jun 2026"
+           data-code="https://github.com/SidharthMN/laravel-ecommerce" 
+           data-video="https://www.linkedin.com/embed/feed/update/urn:li:activity:7466401884061343745/"
+           data-images="laravel_pics/laravel_img1.png,laravel_pics/laravel_img2.png,vaakmitra_pics/laravel_img3.png,laravel_pics/laravel_img4.png,laravel_pics/laravel_img5.png"
+           data-tags="Laravel,PHP,Docker,MySQL,Nginx,Alpine.js"
+           data-accent="Docker Compose Environment · Comprehensive MVC"
+           data-description="A containerized Laravel 12 e-commerce application ready for Docker deployments. It leverages Docker Compose containing services for PHP, Nginx, MySQL database, Redis cache, and phpMyAdmin. Features include clean MVC structure (Users, Products, Orders, Categories, Banners, and Wishlist tables), session cart handlers, stock management, and a backend moderation system for reviews and ratings.">
+        
+        <div class="proj-card-img-wrapper">
+          <img src="laravel_pics/laravel_img1.png" alt="Laravel E-Commerce" class="proj-card-img" loading="lazy">
+          <div class="proj-card-overlay">
+            <span class="proj-card-explore-btn">Explore Details</span>
+          </div>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-header">
+            <span class="proj-card-num">04</span>
+            <span class="proj-card-cat">E-Commerce · DevOps</span>
+          </div>
+          <h3 class="proj-card-title">Laravel E-Commerce Platform</h3>
+          <p class="proj-desc">A Docker-ready full-stack e-commerce application scaffolding with Laravel 12, Nginx, and MySQL with CRUD operations and fully containerized.</p>
+          <div class="proj-card-footer">
+            <div class="proj-card-tags">
+              <span class="ptag">Laravel</span><span class="ptag">Docker</span><span class="ptag">MySQL</span>
+            </div>
+            <span class="proj-card-yr">2026</span>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -657,17 +1296,22 @@ html{-ms-overflow-style:none;scrollbar-width:none;}
 // LOADER
 document.body.style.overflow='hidden';
 
-var ldSub = document.getElementById('ld-sub-text');
-if (ldSub) {
-  setTimeout(function() { ldSub.textContent = "Synchronizing vision and code."; }, 540);
-  setTimeout(function() { ldSub.textContent = "Polishing the pixels."; }, 1260);
-}
+(function() {
+  const loader = document.getElementById('loader');
+  const mc = document.getElementById('mc');
+  const ldSub = document.getElementById('ld-sub-text');
+  
+  if (ldSub) {
+    setTimeout(function() { ldSub.textContent = "Synchronizing vision and code."; }, 540);
+    setTimeout(function() { ldSub.textContent = "Polishing the pixels."; }, 1260);
+  }
 
-setTimeout(function(){
-  document.getElementById('loader').classList.add('hide');
-  document.getElementById('mc').classList.add('visible');
-  document.body.style.overflow='';
-},2400);
+  setTimeout(function() {
+    if (loader) loader.classList.add('hide');
+    if (mc) mc.classList.add('visible');
+    document.body.style.overflow = '';
+  }, 2400);
+})();
 
 // CURSOR ELEMENTS
 var cur = document.getElementById('cur'),
@@ -900,10 +1544,10 @@ document.querySelectorAll('.reveal, .exp-item, .proj-item').forEach(function(el)
     mouseX = width / 2;
     window.addEventListener('resize', resize);
     window.addEventListener('mousemove', (e) => mouseX = e.clientX);
-    window.addEventListener('click', shoot);
+    canvas.addEventListener('click', shoot);
     window.addEventListener('keydown', (e) => { if(e.code === 'Space') shoot(); });
-    window.addEventListener('touchstart', (e) => { mouseX = e.touches[0].clientX; shoot(); }, {passive: true});
-    window.addEventListener('touchmove', (e) => { mouseX = e.touches[0].clientX; }, {passive: true});
+    canvas.addEventListener('touchstart', (e) => { mouseX = e.touches[0].clientX; shoot(); }, {passive: true});
+    canvas.addEventListener('touchmove', (e) => { mouseX = e.touches[0].clientX; }, {passive: true});
     requestAnimationFrame(loop);
   }
 
@@ -994,5 +1638,395 @@ document.addEventListener('pointerdown', function(e) {
   }
 });
 </script>
+
+<!-- PROJECT DETAIL QUICK VIEW MODAL -->
+<div id="project-modal" class="p-modal-overlay">
+  <div class="p-modal-card">
+    <button class="p-modal-close" id="modal-close-btn">&times;</button>
+    
+    <!-- Left Panel: Image Slider -->
+    <div class="p-modal-left">
+      <div class="p-slider-main-container" id="modal-slider-container">
+        <button class="p-slider-arrow p-slider-arrow-prev" id="slider-prev-btn">&lt;</button>
+        <button class="p-slider-arrow p-slider-arrow-next" id="slider-next-btn">&gt;</button>
+      </div>
+      <div class="p-slider-thumbnails" id="modal-thumbnails-container">
+      </div>
+    </div>
+    
+    <!-- Right Panel: Project Details -->
+    <div class="p-modal-right">
+      <div class="p-modal-meta-row">
+        <span class="p-modal-cat" id="modal-project-cat">Category</span>
+        <span class="p-modal-yr" id="modal-project-yr">Year</span>
+      </div>
+      <h3 class="p-modal-title" id="modal-project-title">Project Title</h3>
+      
+      <h4 class="p-modal-desc-heading">About Project</h4>
+      <p class="p-modal-desc" id="modal-project-desc">Project description goes here...</p>
+      
+      <h4 class="p-modal-tags-heading">Tech Stack</h4>
+      <div class="p-modal-tags" id="modal-project-tags">
+      </div>
+      
+      <h4 class="p-modal-actions-heading">Resources</h4>
+      <div class="p-modal-actions" id="modal-project-actions">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FULLSCREEN VIDEO OVERLAY -->
+<div id="video-overlay" class="v-overlay">
+  <button class="v-overlay-close" id="video-close-btn">&times;</button>
+  <div class="v-overlay-container" id="video-container">
+  </div>
+</div>
+
+<script>
+// PROJECT MODAL & QUICK VIEW SLIDER SYSTEM
+(function() {
+  const modal = document.getElementById('project-modal');
+  const modalTitle = document.getElementById('modal-project-title');
+  const modalCat = document.getElementById('modal-project-cat');
+  const modalYr = document.getElementById('modal-project-yr');
+  const modalDesc = document.getElementById('modal-project-desc');
+  const modalTagsContainer = document.getElementById('modal-project-tags');
+  const modalActionsContainer = document.getElementById('modal-project-actions');
+  const closeBtn = document.getElementById('modal-close-btn');
+
+  const sliderContainer = document.getElementById('modal-slider-container');
+  const thumbnailsContainer = document.getElementById('modal-thumbnails-container');
+  const prevBtn = document.getElementById('slider-prev-btn');
+  const nextBtn = document.getElementById('slider-next-btn');
+
+  const videoOverlay = document.getElementById('video-overlay');
+  const videoCloseBtn = document.getElementById('video-close-btn');
+  const videoContainer = document.getElementById('video-container');
+
+  let currentImages = [];
+  let currentImageIndex = 0;
+  let mainSliderImages = [];
+
+  // Card image rotation on hover
+  document.querySelectorAll('.proj-card').forEach(function(card) {
+    const imgEl = card.querySelector('.proj-card-img');
+    const imagesStr = card.getAttribute('data-images');
+    const images = imagesStr ? imagesStr.split(',') : [];
+    
+    let intervalId = null;
+    let imgIndex = 0;
+    
+    if (images.length > 1) {
+      card.addEventListener('mouseenter', function() {
+        // Preload next images
+        images.forEach(src => {
+          const tempImg = new Image();
+          tempImg.src = src.trim();
+        });
+        
+        intervalId = setInterval(function() {
+          imgIndex = (imgIndex + 1) % images.length;
+          imgEl.src = images[imgIndex].trim();
+        }, 1200);
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        if (intervalId) {
+          clearInterval(intervalId);
+          intervalId = null;
+        }
+        imgIndex = 0;
+        imgEl.src = images[0].trim();
+      });
+    }
+  });
+
+  // Intercept click on project cards
+  document.querySelectorAll('.proj-card').forEach(function(card) {
+    card.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      const title = card.getAttribute('data-title');
+      const category = card.getAttribute('data-category');
+      const year = card.getAttribute('data-yr');
+      const desc = card.getAttribute('data-description');
+      const tags = card.getAttribute('data-tags') ? card.getAttribute('data-tags').split(',') : [];
+      const imagesStr = card.getAttribute('data-images');
+      currentImages = imagesStr ? imagesStr.split(',') : [];
+      
+      const codeUrl = card.getAttribute('data-code');
+      const videoUrl = card.getAttribute('data-video');
+      const videoFrontend = card.getAttribute('data-video-frontend');
+      const videoBackend = card.getAttribute('data-video-backend');
+      
+      // 1. Populate Text details
+      modalTitle.textContent = title;
+      modalCat.textContent = category;
+      modalYr.textContent = year;
+      modalDesc.textContent = desc;
+      
+      // 2. Populate Tags
+      modalTagsContainer.innerHTML = '';
+      tags.forEach(tag => {
+        const span = document.createElement('span');
+        span.className = 'ptag';
+        span.textContent = tag.trim();
+        modalTagsContainer.appendChild(span);
+      });
+      
+      // 3. Populate Actions
+      modalActionsContainer.innerHTML = '';
+      
+      // Handle different outputs
+      if (videoFrontend && videoBackend) {
+        // SafeDrive Rewards double demo videos
+        const fBtn = document.createElement('a');
+        fBtn.className = 'p-action-btn p-action-btn-primary';
+        fBtn.innerHTML = '▶ View Frontend Demo';
+        fBtn.addEventListener('click', () => playVideo(videoFrontend));
+        modalActionsContainer.appendChild(fBtn);
+
+        const bBtn = document.createElement('a');
+        bBtn.className = 'p-action-btn p-action-btn-primary';
+        bBtn.innerHTML = '▶ View Backend Demo';
+        bBtn.addEventListener('click', () => playVideo(videoBackend));
+        modalActionsContainer.appendChild(bBtn);
+      } else if (videoUrl) {
+        // Standard single demo video
+        const outBtn = document.createElement('a');
+        outBtn.className = 'p-action-btn p-action-btn-primary';
+        outBtn.innerHTML = '▶ View My Output';
+        outBtn.addEventListener('click', () => playVideo(videoUrl));
+        modalActionsContainer.appendChild(outBtn);
+      }
+      
+      if (codeUrl && codeUrl !== '#') {
+        // GitHub Repository link
+        const codeBtn = document.createElement('a');
+        codeBtn.className = 'p-action-btn p-action-btn-secondary';
+        codeBtn.innerHTML = '&lt;/&gt; View My Code';
+        codeBtn.href = codeUrl;
+        codeBtn.target = '_blank';
+        modalActionsContainer.appendChild(codeBtn);
+      }
+
+      // Secondary close button
+      const closeSecBtn = document.createElement('a');
+      closeSecBtn.className = 'p-action-btn p-action-btn-secondary';
+      closeSecBtn.innerHTML = '← Back to Projects';
+      closeSecBtn.addEventListener('click', closeModal);
+      modalActionsContainer.appendChild(closeSecBtn);
+
+      // Re-attach custom cursor swell for newly generated buttons
+      setTimeout(bindCursorEvents, 100);
+      
+      // 4. Initialize Image Slider
+      setupSlider();
+      
+      // Display choice modal
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden'; // Lock page scrolling
+    });
+  });
+
+  function setupSlider() {
+    // Remove existing slide images
+    const existingImages = sliderContainer.querySelectorAll('.p-slider-img');
+    existingImages.forEach(img => img.remove());
+    
+    thumbnailsContainer.innerHTML = '';
+    mainSliderImages = [];
+    currentImageIndex = 0;
+    
+    if (currentImages.length === 0) {
+      prevBtn.style.display = 'none';
+      nextBtn.style.display = 'none';
+      return;
+    }
+    
+    prevBtn.style.display = currentImages.length > 1 ? 'flex' : 'none';
+    nextBtn.style.display = currentImages.length > 1 ? 'flex' : 'none';
+
+    // Create main slide images
+    currentImages.forEach((imgSrc, index) => {
+      const img = document.createElement('img');
+      img.src = imgSrc.trim();
+      img.alt = `Screenshot ${index + 1}`;
+      img.className = 'p-slider-img';
+      if (index === 0) img.classList.add('active');
+      sliderContainer.appendChild(img);
+      mainSliderImages.push(img);
+      
+      // Create thumbnail
+      const thumb = document.createElement('img');
+      thumb.src = imgSrc.trim();
+      thumb.alt = `Thumbnail ${index + 1}`;
+      thumb.className = 'p-thumb';
+      if (index === 0) thumb.classList.add('active');
+      thumb.addEventListener('click', () => setActiveImage(index));
+      thumbnailsContainer.appendChild(thumb);
+    });
+  }
+
+  function setActiveImage(index) {
+    if (index < 0 || index >= mainSliderImages.length) return;
+    
+    // Deactivate previous active elements
+    mainSliderImages[currentImageIndex].classList.remove('active');
+    thumbnailsContainer.children[currentImageIndex].classList.remove('active');
+    
+    // Activate new elements
+    currentImageIndex = index;
+    mainSliderImages[currentImageIndex].classList.add('active');
+    
+    const activeThumb = thumbnailsContainer.children[currentImageIndex];
+    activeThumb.classList.add('active');
+    
+    // Auto scroll thumbnails if overflowed
+    activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }
+
+  prevBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    let prevIndex = currentImageIndex - 1;
+    if (prevIndex < 0) prevIndex = mainSliderImages.length - 1;
+    setActiveImage(prevIndex);
+  });
+
+  nextBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    let nextIndex = currentImageIndex + 1;
+    if (nextIndex >= mainSliderImages.length) nextIndex = 0;
+    setActiveImage(nextIndex);
+  });
+
+  function closeModal() {
+    modal.classList.remove('active');
+    const navLinks = document.querySelector('.nav-links');
+    if (!navLinks || !navLinks.classList.contains('active')) {
+      document.body.style.overflow = '';
+    }
+  }
+
+  closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) closeModal();
+  });
+
+  function playVideo(url) {
+    closeModal();
+    if (!url) return;
+
+    const isEmbed = url.includes('linkedin.com') || 
+                    url.includes('youtube.com') || 
+                    url.includes('player.vimeo.com') || 
+                    url.includes('embed');
+
+    videoContainer.innerHTML = ''; // Clear media
+
+    if (isEmbed) {
+      const iframe = document.createElement('iframe');
+      iframe.src = url;
+      iframe.className = 'v-overlay-media';
+      iframe.setAttribute('allow', 'autoplay; fullscreen; encrypted-media; picture-in-picture');
+      iframe.setAttribute('allowfullscreen', 'true');
+      videoContainer.appendChild(iframe);
+    } else {
+      const video = document.createElement('video');
+      video.src = url;
+      video.className = 'v-overlay-media';
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      videoContainer.appendChild(video);
+      video.play().catch(err => console.log(err));
+    }
+    
+    videoOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeVideo() {
+    videoContainer.innerHTML = '';
+    videoOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  videoCloseBtn.addEventListener('click', closeVideo);
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      if (videoOverlay.classList.contains('active')) {
+        closeVideo();
+      } else if (modal.classList.contains('active')) {
+        closeModal();
+      }
+    }
+  });
+
+  function bindCursorEvents() {
+    const cur = document.getElementById('cur');
+    const ring = document.getElementById('cur-ring');
+    if (!cur || !ring) return;
+
+    document.querySelectorAll('.proj-card, .p-modal-close, .p-slider-arrow, .p-thumb, .p-action-btn, .v-overlay-close').forEach(function(el) {
+      el.removeEventListener('mouseenter', growCursor);
+      el.removeEventListener('mouseleave', shrinkCursor);
+      el.addEventListener('mouseenter', growCursor);
+      el.addEventListener('mouseleave', shrinkCursor);
+    });
+  }
+
+  function growCursor() {
+    const cur = document.getElementById('cur');
+    const ring = document.getElementById('cur-ring');
+    if (cur && ring) {
+      cur.style.width = '18px'; cur.style.height = '18px';
+      ring.style.width = '54px'; ring.style.height = '54px';
+    }
+  }
+
+  function shrinkCursor() {
+    const cur = document.getElementById('cur');
+    const ring = document.getElementById('cur-ring');
+    if (cur && ring) {
+      cur.style.width = '10px'; cur.style.height = '10px';
+      ring.style.width = '38px'; ring.style.height = '38px';
+    }
+  }
+
+  // Touch Swipe Gestures for Mobile Screenshot Slider
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  sliderContainer.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+  }, {passive: true});
+
+  sliderContainer.addEventListener('touchend', function(e) {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  }, {passive: true});
+
+  function handleSwipe() {
+    const threshold = 50;
+    if (touchEndX < touchStartX - threshold) {
+      // Swipe Left -> Next
+      let nextIndex = currentImageIndex + 1;
+      if (nextIndex >= mainSliderImages.length) nextIndex = 0;
+      setActiveImage(nextIndex);
+    } else if (touchEndX > touchStartX + threshold) {
+      // Swipe Right -> Prev
+      let prevIndex = currentImageIndex - 1;
+      if (prevIndex < 0) prevIndex = mainSliderImages.length - 1;
+      setActiveImage(prevIndex);
+    }
+  }
+
+  setTimeout(bindCursorEvents, 3000);
+})();
+</script>
+
 </body>
 </html>
