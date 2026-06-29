@@ -13,4 +13,5 @@ github : https://github.com/SidharthMN/xpenz-fintech
 safedrive rewards
 frontend : https://www.linkedin.com/feed/update/urn:li:activity:7456025245217464320/
 backend : https://www.linkedin.com/feed/update/urn:li:activity:7461759841993150464/
-github : https://github.com/SidharthMN/LICENSEPLATEDETECTION
+github frontend : https://github.com/SidharthMN/SafeDriveRewards
+github backend : https://github.com/SidharthMN/LICENSEPLATEDETECTION
