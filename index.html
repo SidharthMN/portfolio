@@ -47,9 +47,27 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .nav-links{display:flex;gap:2.5rem;list-style:none;}
 .nav-links a{font-size:.72rem;color:var(--muted2);text-decoration:none;letter-spacing:.08em;transition:color .2s;}
 .nav-links a:hover{color:var(--text);}
-.nav-badge{font-size:.62rem;color:var(--green);letter-spacing:.1em;display:flex;align-items:center;gap:.4rem;}
-.nav-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 2s infinite;}
-@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+.nav-badge-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid var(--green);
+  color: var(--green);
+  background: transparent;
+  padding: 0.35rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  cursor: pointer;
+}
+.nav-badge-btn:hover {
+  background: var(--green);
+  color: var(--bg);
+}
 
 /* SEC META */
 .sec-meta{display:flex;justify-content:space-between;align-items:center;padding:.7rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:3.5rem;}
@@ -137,10 +155,32 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .about-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem;}
 .atag{font-size:.6rem;color:var(--muted2);border:1px solid var(--border2);padding:.28rem .7rem;letter-spacing:.07em;transition:border-color .2s,color .2s;}
 .atag:hover{border-color:var(--muted2);color:var(--text);}
-.stat-row{display:flex;justify-content:space-between;padding:1rem 0;border-bottom:1px solid var(--border);}
+.stat-row{display:flex;justify-content:space-between;align-items:center;padding:1rem 0;border-bottom:1px solid var(--border);}
 .stat-row:first-child{border-top:1px solid var(--border);}
 .stat-lbl{font-size:.68rem;color:var(--muted);letter-spacing:.06em;}
 .stat-val{font-size:.78rem;color:var(--text);font-weight:500;}
+
+.btn-cv {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid var(--green);
+  color: var(--green);
+  background: transparent;
+  padding: 0.35rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  cursor: pointer;
+}
+.btn-cv:hover {
+  background: var(--green);
+  color: var(--bg);
+}
 
 /* SKILLS */
 .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--border);border-left:1px solid var(--border);}
@@ -833,7 +873,7 @@ html{-ms-overflow-style:none;scrollbar-width:none;}
   }
   .nav-links.active{transform:translateX(0);}
   .nav-links a{font-size:1.1rem;color:var(--text);letter-spacing:.2em;text-transform:uppercase;}
-  .nav-badge{display:none;}
+  .nav-badge-btn{display:none;}
   #hero,.section{padding:4rem 1.5rem;}
   .hero-top{flex-direction:column;gap:1rem;}
   .hero-bottom{flex-direction:column;gap:1.5rem;align-items:flex-start;}
@@ -875,7 +915,10 @@ html{-ms-overflow-style:none;scrollbar-width:none;}
     <li><a href="#certifications">Certifications</a></li>
     <li><a href="#contact-sec">Contact</a></li>
   </ul>
-  <div class="nav-badge">Available for work</div>
+  <a href="smn-cv-prism.pdf" download class="nav-badge-btn">
+    Download CV
+    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 2px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+  </a>
   <div class="nav-menu-btn" id="nav-toggle">
     <span></span><span></span><span></span>
   </div>
@@ -969,7 +1012,15 @@ html{-ms-overflow-style:none;scrollbar-width:none;}
         </div>
       </div>
       <div class="reveal" style="transition-delay:.1s;">
-        <div class="stat-row"><span class="stat-lbl">Current Status</span><span class="stat-val" style="color:var(--green)">Open to Work</span></div>
+        <div class="stat-row">
+          <span class="stat-lbl">Current Status</span>
+          <span class="stat-val">
+            <a href="smn-cv-prism.pdf" download class="btn-cv">
+              Download My CV
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 2px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            </a>
+          </span>
+        </div>
         <div class="stat-row"><span class="stat-lbl">Education</span><span class="stat-val">B.Tech CSE</span></div>
         <div class="stat-row"><span class="stat-lbl">Location</span><span class="stat-val">Thiruvananthapuram, KL</span></div>
         <div class="stat-row"><span class="stat-lbl">Interest</span><span class="stat-val">AI &amp; Development</span></div>
