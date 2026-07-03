@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Sidharth M N</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;}
@@ -861,6 +862,95 @@ footer{padding:1.8rem 3rem;display:flex;justify-content:space-between;align-item
 html{-ms-overflow-style:none;scrollbar-width:none;}
 ::selection{background:var(--green);color:var(--bg);}
 
+/* CONTACT FORM BOX */
+.contact-form-box {
+  max-width: 540px;
+  margin: 3.5rem auto 0 auto;
+  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.01);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 50px rgba(0, 224, 144, 0.01);
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+.contact-form-box:hover {
+  border-color: rgba(0, 224, 144, 0.25);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 50px rgba(0, 224, 144, 0.04);
+}
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: left;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.form-group label {
+  font-size: 0.65rem;
+  color: var(--muted2);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+}
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  background: rgba(12, 12, 12, 0.6);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  padding: 0.9rem 1.1rem;
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--muted);
+  opacity: 0.8;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--green);
+  background-color: rgba(0, 224, 144, 0.02);
+  box-shadow: 0 0 12px rgba(0, 224, 144, 0.12);
+}
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+.form-submit-btn {
+  width: 100%;
+  justify-content: center;
+  font-weight: 600;
+  cursor: pointer;
+}
+.form-status {
+  font-size: 0.72rem;
+  text-align: center;
+  letter-spacing: 0.04em;
+  transition: opacity 0.3s;
+  opacity: 0;
+  min-height: 18px;
+}
+.form-status.success {
+  color: var(--green);
+  opacity: 1;
+}
+.form-status.error {
+  color: #ff5555;
+  opacity: 1;
+}
+.form-status.info {
+  color: var(--muted2);
+  opacity: 1;
+}
 
 @media(max-width:768px){
   nav{padding:1rem 1.5rem;}
@@ -885,6 +975,10 @@ html{-ms-overflow-style:none;scrollbar-width:none;}
   .exp-item{grid-template-columns:1fr;gap:.5rem;}
   .edu-block{grid-template-columns:1fr;}
   footer{flex-direction:column;text-align:center;}
+  .contact-form-box {
+    padding: 1.8rem 1.5rem;
+    margin-top: 2.5rem;
+  }
 }
 </style>
 </head>
@@ -1211,7 +1305,7 @@ html{-ms-overflow-style:none;scrollbar-width:none;}
            data-yr="Jun 2026"
            data-code="https://github.com/SidharthMN/laravel-ecommerce" 
            data-video="https://www.linkedin.com/embed/feed/update/urn:li:activity:7466401884061343745/"
-           data-images="laravel_pics/laravel_img1.png,laravel_pics/laravel_img2.png,vaakmitra_pics/laravel_img3.png,laravel_pics/laravel_img4.png,laravel_pics/laravel_img5.png"
+           data-images="laravel_pics/laravel_img1.png,laravel_pics/laravel_img2.png,laravel_pics/laravel_img3.png,laravel_pics/laravel_img4.png,laravel_pics/laravel_img5.png"
            data-tags="Laravel,PHP,Docker,MySQL,Nginx,Alpine.js"
            data-accent="Docker Compose Environment · Comprehensive MVC"
            data-description="A containerized Laravel 12 e-commerce application ready for Docker deployments. It leverages Docker Compose containing services for PHP, Nginx, MySQL database, Redis cache, and phpMyAdmin. Features include clean MVC structure (Users, Products, Orders, Categories, Banners, and Wishlist tables), session cart handlers, stock management, and a backend moderation system for reviews and ratings.">
@@ -1330,8 +1424,28 @@ html{-ms-overflow-style:none;scrollbar-width:none;}
       <div class="cmeta reveal" style="transition-delay:.22s;">
         <a href="https://linkedin.com/in/sidharthmn" class="clink" target="_blank">LinkedIn</a>
         <a href="https://github.com/SidharthMN" class="clink" target="_blank">GitHub</a>
-        <a href="https://www.instagram.com/sid.soid/" class="clink" target="_blank">Instagram</a>
+        <a href="https://www.instagram.com/sid.xoid/" class="clink" target="_blank">Instagram</a>
       </div>
+    </div>
+
+    <!-- CONTACT FORM BOX -->
+    <div class="contact-form-box reveal" style="transition-delay:.26s;">
+      <form id="contact-form" class="contact-form">
+        <div class="form-group">
+          <label for="user_name">Full Name</label>
+          <input type="text" id="user_name" name="user_name" placeholder="Your Name" required />
+        </div>
+        <div class="form-group">
+          <label for="user_email">Email Address</label>
+          <input type="email" id="user_email" name="user_email" placeholder="Your Email" required />
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" placeholder="Type your message here..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-fill form-submit-btn" id="submit-btn">Submit Request</button>
+        <div class="form-status" id="form-status"></div>
+      </form>
     </div>
   </div>
 </section>
@@ -2120,6 +2234,82 @@ document.addEventListener('pointerdown', function(e) {
   }
 
   setTimeout(bindCursorEvents, 3000);
+})();
+
+// EMAILJS CONTACT FORM SUBMISSION
+(function() {
+  const EMAILJS_SERVICE_ID = "service_uc044qo";
+  const EMAILJS_TEMPLATE_ID = "template_dcwtfzc"; // Replace with your Template ID
+  const EMAILJS_PUBLIC_KEY = "Bx0-Z4DsoWcu5CbVH";   // Replace with your Public Key
+
+  const form = document.getElementById('contact-form');
+  const statusEl = document.getElementById('form-status');
+  const submitBtn = document.getElementById('submit-btn');
+
+  if (!form) return;
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Reset status message
+    statusEl.className = 'form-status';
+    statusEl.textContent = '';
+    statusEl.style.opacity = '0';
+
+    // Verify configuration
+    if (EMAILJS_TEMPLATE_ID === "YOUR_TEMPLATE_ID" || EMAILJS_PUBLIC_KEY === "YOUR_PUBLIC_KEY") {
+      statusEl.className = 'form-status error';
+      statusEl.textContent = 'Configuration Error: Please update EMAILJS_TEMPLATE_ID and EMAILJS_PUBLIC_KEY inside index.html.';
+      statusEl.style.opacity = '1';
+      return;
+    }
+
+    // Set loading state
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    // Initialize EmailJS
+    emailjs.init({
+      publicKey: EMAILJS_PUBLIC_KEY
+    });
+
+    // Prepare template parameters to guarantee compatibility with various template structures
+    const templateParams = {
+      // Sender Name variations
+      from_name: document.getElementById('user_name').value,
+      user_name: document.getElementById('user_name').value,
+      name: document.getElementById('user_name').value,
+
+      // Sender Email variations
+      from_email: document.getElementById('user_email').value,
+      user_email: document.getElementById('user_email').value,
+      reply_to: document.getElementById('user_email').value,
+      email: document.getElementById('user_email').value,
+
+      // Message variations
+      message: document.getElementById('message').value,
+      message_html: document.getElementById('message').value
+    };
+
+    // Send Form
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+      .then(function() {
+        statusEl.className = 'form-status success';
+        statusEl.textContent = 'Request submitted successfully! Thank you.';
+        statusEl.style.opacity = '1';
+        form.reset();
+      })
+      .catch(function(error) {
+        console.error('EmailJS Error:', error);
+        statusEl.className = 'form-status error';
+        statusEl.textContent = 'Failed to submit request. Please try again or email directly.';
+        statusEl.style.opacity = '1';
+      })
+      .finally(function() {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Request';
+      });
+  });
 })();
 </script>
 
